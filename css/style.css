@@ -1,0 +1,55 @@
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header{
+  padding: 10px;
+  background-color: #F1EDEC;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: row wrap;
+}
+
+header > *{
+  margin: 5px 20px;
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.5em;
+}
+
+#title{
+  font-family: 'Sacramento', cursive;
+  font-size: 3em;
+}
+
+/* Small screens */
+@media all and (max-width: 600px) {
+  /* Use column direction in small screens */
+  header {
+    flex-direction: column;
+  }
+  /* Keep the title at the top in small screens */
+  #title{
+    order: -1;
+  }
+}
+
+a:link, a:visited{
+  padding: 5px 8px;
+  color: black;
+  text-decoration: none;
+}
+
+div a:hover{
+  background-color: #E1DFDE;
+}
+
+/*        *           *         *           *         *         *         */
