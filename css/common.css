@@ -9,7 +9,7 @@ body {
   padding: 0;
   background-color: #F1EDEC;
   font-family: 'Dosis', sans-serif;
-  color: #555555;
+  color: #443935;
 }
 
 header{
@@ -34,7 +34,7 @@ header{
 }
 
 .header-links{
-  color: #555555;
+  color: #443935;
   text-decoration: none;
 }
 
@@ -43,6 +43,7 @@ header{
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 5px 5px 0px 5px;
 }
 
 .cart-button:hover{
@@ -51,16 +52,15 @@ header{
 }
 
 .material-icons.cart-icon{
-  font-size: 28px;
+  font-size: 27px;
 }
 
 #cart-items-count{
   color: white;
-  background-color: black;
+  background-color: #D9624C;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 12px;
   padding: 0px 5px;
-  margin-top: 5px;
 }
 
 /* To remove blue border from css custom-styled button */

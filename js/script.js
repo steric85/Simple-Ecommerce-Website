@@ -122,6 +122,28 @@ var items=[
 
 var cartItems=[];
 
+function displayCategories(){
+  var categoryList = document.getElementById('category-list');
+  categories.map((category) => {
+    let categoryNode = document.createElement("div");
+    categoryNode.setAttribute("class","category");
+    categoryNode.setAttribute("onclick","displayItems(this)");
+    categoryNode.innerHTML = `
+      <img class ="category-image" src=${category.image} alt="${category.name}">
+      <div class="category-name"> ${category.name.toUpperCase()} </div>
+    `;
+    categoryList.appendChild(categoryNode);
+  });
+}
+
+function displayItems(ele){
+  window.location.href = "menu.html";
+  // adding parameters to link
+  // change category name
+  // filter the items according to the category chosen
+}
+
+
 function incrementCartCount(){
   var countElement =  document.getElementById('cart-items-count');
   var count = parseInt(countElement.innerHTML);
@@ -129,13 +151,6 @@ function incrementCartCount(){
   // need to add the element to cart array;
   // update the count with the quantity -- removed qty
   window.location.href = "#";
-}
-
-function displayItems(){
-  window.location.href = "menu.html";
-  // adding parameters to link
-  // change category name
-  // filter the items according to the category chosen
 }
 
 function updateCartDetails(){
