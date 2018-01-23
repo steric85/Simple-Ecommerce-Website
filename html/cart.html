@@ -16,7 +16,7 @@
       </div>
       <h1 id="title">Art&Craft</h1>
       <div>
-          <a href="./cart.html">CART (4)</a>
+          <a href="./cart.html">CART (<span id="cart-items-count">4</span>)</a>
       </div>
     </header>
 
@@ -37,7 +37,7 @@
               <tr>
                 <td>
                   <div class="cart-item-details">
-                    <i class="material-icons">cancel</i>
+                    <i class="material-icons delete" onclick="removeItem(this)">cancel</i>
                     <img class="cart-item-image" src="../images/catwashitape.jpg">
                     <div class="cart-item-description">
                       <div class="cart-item-name">Cat washi tape</div>
@@ -47,36 +47,36 @@
                 </td>
                 <td>
                   <div>
-                    <input class="cart-item-qty" type="text" size="1" value="1">
+                    <input class="cart-item-qty" type="number" size="1" value="1" min="1" >
                   </div>
                 </td>
                 <td>
-                  <div class="cart-item-price">120</div>
+                  <div class="cart-item-price">640</div>
                 </td>
               </tr>
               <tr>
                 <td>
                   <div class="cart-item-details">
-                    <i class="material-icons">cancel</i>
+                    <i class="material-icons delete" onclick="removeItem(this)">cancel</i>
                     <img class="cart-item-image" src="../images/flowerpunch.jpeg">
                     <div class="cart-item-description">
-                      <div class="cart-item-name">Flower Craft Punch</div>
+                      <div class="cart-item-name">Flower Paper Punch</div>
                       <div class="cart-item-detail">One piece</div>
                     </div>
                   </div>
                 </td>
                 <td>
                   <div>
-                    <input class="cart-item-qty" type="text" size="1" value="3">
+                    <input class="cart-item-qty" type="number" size="1" value="3" min="1" >
                   </div>
                 </td>
                 <td>
-                  <div class="cart-item-price">90</div>
+                  <div class="cart-item-price">1950</div>
                 </td>
               </tr>
               <tr>
                 <td colspan="2">TOTAL</td>
-                <td><span id="total-amount">210</span></td>
+                <td><span id="total-amount">2590</span></td>
               </tr>
             </tbody>
         </table>
@@ -86,5 +86,7 @@
         </div>
       </div>
     </div>
+
+    <script type="text/javascript" src="../js/script.js"></script>
   </body>
 </html>

@@ -1,0 +1,54 @@
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  margin: 70px 0px 0px 0px;
+  padding: 0;
+  background-color: #F1EDEC;
+  font-family: 'Dosis', sans-serif;
+  color: #555555;
+}
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 70px;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row wrap; */
+}
+
+header > *{
+  margin: 5px 20px;
+  font-size: 1.5em;
+}
+
+#title{
+  font-family: 'Sacramento', cursive;
+  font-size: 3em;
+  cursor: default;
+}
+
+a:link, a:visited{
+  padding: 5px 8px;
+  color: #555555;
+  text-decoration: none;
+}
+
+div > a:hover{
+  background-color: #E1DFDE;
+}
+
+/* To remove blue border from css custom-styled button */
+button:focus {
+  outline: 0;
+}

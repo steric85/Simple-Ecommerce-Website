@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Simple Ecommerce Website</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
@@ -10,11 +11,10 @@
   <body>
     <header>
       <div>
-          <a href="./index.html">SHOP</a>
+          <a href="./index.html" id="title">Art&Craft</a>
       </div>
-      <h1 id="title">Art&Craft</h1>
       <div>
-          <a href="./cart.html">CART (4)</a>
+          <a href="./cart.html">CART (<span id="cart-items-count">4</span>)</a>
       </div>
     </header>
 
@@ -25,17 +25,17 @@
           <p>DESIGNER PAPERS</p>
         </div>
         <div>
-          <button class="shop-button" type="button"><a href="./menu.html">SHOP NOW</a></button>
+          <button class="shop-button" type="button" onclick="displayItems()">SHOP NOW</button>
         </div>
       </div>
 
       <div class="category">
-        <img class ="category-image" src="../images/papercutter.jpg" alt="Craft Punch">
+        <img class ="category-image" src="../images/craftpunches.jpg" alt="Craft Punch">
         <div class="category-name">
           <p>CRAFT PUNCHES</p>
         </div>
         <div>
-          <button class="shop-button" type="button"><a href="./menu.html">SHOP NOW</a></button>
+          <button class="shop-button" type="button" onclick="displayItems()">SHOP NOW</button>
         </div>
       </div>
 
@@ -45,20 +45,22 @@
           <p>WASHI TAPE</p>
         </div>
         <div>
-          <button class="shop-button" type="button"><a href="./menu.html">SHOP NOW</a></button>
+          <button class="shop-button" type="button" onclick="displayItems()">SHOP NOW</button>
         </div>
       </div>
 
       <div class="category">
-        <img class ="category-image" src="../images/craftaccessories.jpeg" alt="Art Accessories">
+        <img class ="category-image" src="../images/artaccessories.jpeg" alt="Art Accessories">
         <div class="category-name">
           <p>ART ACCESSORIES</p>
         </div>
         <div>
-          <button class="shop-button" type="button"><a href="./menu.html">SHOP NOW</a></button>
+          <button class="shop-button" type="button" onclick="displayItems()">SHOP NOW</button>
         </div>
       </div>
 
     </div >
+
+    <script type="text/javascript" src="../js/script.js"></script>
   </body>
 </html>
