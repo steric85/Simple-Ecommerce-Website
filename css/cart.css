@@ -17,7 +17,8 @@
 }
 
 #my-cart{
-  font-size: 2em;
+  font-size: 32px;
+  font-weight: bold;
   text-decoration: underline;
   margin-bottom: 40px;
 }
@@ -94,7 +95,7 @@ tbody>tr:last-child>td {
 }
 
 .order-button{
-  background-color: #555555;
+  background-color: #D9624C;
   color: white;
   border: 3px solid ;
   padding: 5px 45px;
@@ -111,5 +112,5 @@ tbody>tr:last-child>td {
 
 .order-button:hover {
    background-color: white;
-   color: #555555;
+   color: #D9624C;
 }

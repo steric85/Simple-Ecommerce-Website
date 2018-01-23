@@ -28,7 +28,6 @@ var items=[
     description: ['8" x 8" paper pack','150gsm','acid and lignin free'],
     availableQuantity: 5,
     size: '8"x8"',
-    colours:['blue','black'],
   },
   {
     name: 'Papericious Premium Edition Love in Paris',
@@ -41,7 +40,6 @@ var items=[
     ,'Great for scrapbooking, making cards, invitations, tags and photographers'],
     availableQuantity: 3,
     size: '12 x 12',
-    colours:[],
   },
   {
     name: 'Cat Washi Tape',
@@ -66,7 +64,6 @@ var items=[
     'Great for beauty your photo album, books decoration of your beloved diary, notebook or other craft projects'],
     availableQuantity: 2,
     size: '',
-    colours:[],
   },
   {
     name: 'Flower Paper Punch',
@@ -78,7 +75,6 @@ var items=[
     description: ['Material: ABS + Metal','Suitable for paper: 80-180g','Size: 7 x 4 x 5.6cm','Size of flower cut: about 2.3-2.5cm'],
     availableQuantity: 15,
     size: '',
-    colours:[],
   },
   {
     name: 'Cupcake Punch and Stamp',
@@ -91,7 +87,6 @@ var items=[
     'Create meaningful memories by hand with innovative crafting essentials from lifestyle expert Martha Stewart'],
     availableQuantity: 8,
     size: '',
-    colours:[],
   },
   {
     name: 'Super Value Brush Set',
@@ -104,7 +99,6 @@ var items=[
     'Gold Seamless Aluminium Ferrule'],
     availableQuantity: 4,
     size: '',
-    colours:[],
   },
   {
     name: 'DIY Craft Scissors',
@@ -116,7 +110,6 @@ var items=[
     description: ['One lot including 6 different designs','Material: Metal and Plastic','Size: 5inch'],
     availableQuantity: 8,
     size: '',
-    colours:[],
   }
 ];
 
