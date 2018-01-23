@@ -21,7 +21,7 @@ header{
   padding: 0px 30px;
   background-color: white;
   z-index: 1000;
-  font-size: 23px;
+  font-weight: bold;
   display: -webkit-flex;
   display: flex;
   justify-content: space-between;
@@ -31,7 +31,6 @@ header{
 #title{
   font-family: 'Sacramento', cursive;
   font-size: 40px;
-  font-weight: bold;
 }
 
 .header-links{
@@ -40,11 +39,28 @@ header{
 }
 
 .cart-button{
-  padding: 5px 8px;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .cart-button:hover{
   background-color: #E1DFDE;
+  border-radius: 4px;
+}
+
+.material-icons.cart-icon{
+  font-size: 28px;
+}
+
+#cart-items-count{
+  color: white;
+  background-color: black;
+  border-radius: 4px;
+  font-size: 13px;
+  padding: 0px 5px;
+  margin-top: 5px;
 }
 
 /* To remove blue border from css custom-styled button */
