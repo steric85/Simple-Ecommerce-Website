@@ -30,7 +30,7 @@ var items=[
     size: '8"x8"',
   },
   {
-    name: 'Papericious Premium Edition Love in Paris',
+    name: 'Premium Edition Love in Paris',
     category: 'designer-papers',
     seller: 'Papericious',
     number: 20,
@@ -70,7 +70,7 @@ var items=[
     category: 'craft-punches',
     seller: 'SODIAL(R)',
     number: 1,
-    image: '../images/flowerpunch.jpg',
+    image: '../images/flowerpunch.jpeg',
     price: 650,
     description: ['Material: ABS + Metal','Suitable for paper: 80-180g','Size: 7 x 4 x 5.6cm','Size of flower cut: about 2.3-2.5cm'],
     availableQuantity: 15,
@@ -93,7 +93,7 @@ var items=[
     category: 'art-accessories',
     seller: 'Royal and Langnickel',
     number: 10,
-    image: '../images/paintbrush.jpg',
+    image: '../images/paintbrush.jpeg',
     price: 850,
     description: ['Polymer handle, paint will not chip off like it can tend to do with a wooden handle',
     'Gold Seamless Aluminium Ferrule'],
@@ -118,9 +118,9 @@ var cartItems=[];
 function displayCategories(){
   var categoryList = document.getElementById('category-list');
   categories.map((category) => {
-    let categoryNode = document.createElement("div");
+    var categoryNode = document.createElement("div");
     categoryNode.setAttribute("class","category");
-    categoryNode.setAttribute("onclick","displayItems(this)");
+    categoryNode.setAttribute("onclick","displayCategoryItems(this)");
     categoryNode.innerHTML = `
       <img class ="category-image" src=${category.image} alt="${category.name}">
       <div class="category-name"> ${category.name.toUpperCase()} </div>
@@ -129,13 +129,68 @@ function displayCategories(){
   });
 }
 
-function displayItems(ele){
-  window.location.href = "menu.html";
-  // adding parameters to link
-  // change category name
-  // filter the items according to the category chosen
+function displayCategoryItems(ele){
+  var category = ele.getElementsByClassName('category-name')[0].innerHTML.toString().trim();
+  window.location.href = "menu.html?category="+category;
 }
 
+function displayItems(){
+  var category = document.URL.substring(document.URL.indexOf("category=")+"category=".length).replace(/%20/g,' ');
+  document.getElementById('menu-title').innerHTML = category;
+  var categoryName = category.replace(/ /g,'-').toLowerCase();
+  var itemList = document.getElementById('item-list');
+  items.map((item) => {
+    console.log('map does work')
+    if(item.category == categoryName){
+      var itemNode = document.createElement("div");
+      itemNode.setAttribute("class","item");
+      itemNode.innerHTML = `
+        <img class="item-image" src=${item.image} alt="Item image">
+        <div class="item-name">${item.name}</div>
+        <div class="item-seller">${item.seller}</div>
+        <div class="item-price">Rs. ${item.price}</div>
+        <div class="overlay"></div>
+        <div class="view-details"><a onclick="openPopup(this)">VIEW DETAILS</a></div>
+      `;
+      itemList.appendChild(itemNode);
+    }
+  });
+}
+
+function openPopup(ele){
+  window.location.href = "#popupbox";
+  var itemElementName = ele.closest('.item').getElementsByClassName('item-name')[0].innerHTML;
+  var index =0;
+  while(index < items.length){
+    if(itemElementName == items[index].name){
+      break;
+    }
+    index++;
+  }
+  var popupDetailsNode = document.getElementById('popup-item-details');
+  var imageNode = document.createElement("img");
+  imageNode.setAttribute("class","popup-item-image");
+  imageNode.setAttribute("src",items[index].image);
+  imageNode.setAttribute("alt",items[index].name);
+  var textNode  =document.createElement("div");
+  textNode.setAttribute("class","popup-item-text");
+  var htmlText =`
+    <div class="popup-item-name">${items[index].name}</div>
+    <div class="popup-item-seller">${items[index].seller}</div>
+    <div class="popup-item-description">
+      <ul>`;
+  items[index].description.map((element) => {
+    var listNode = document.createElement("li");
+    listNode.innerHTML = element;
+    htmlText += listNode.outerHTML;
+  })
+  htmlText +=`</ul>
+    </div>
+    <div class="popup-item-price">Price: Rs. ${items[index].price}</div>`;
+  textNode.innerHTML = htmlText;
+  popupDetailsNode.appendChild(imageNode);
+  popupDetailsNode.appendChild(textNode);
+}
 
 function incrementCartCount(){
   var countElement =  document.getElementById('cart-items-count');
@@ -143,7 +198,7 @@ function incrementCartCount(){
   countElement.innerHTML = count + 1;
   // need to add the element to cart array;
   // update the count with the quantity -- removed qty
-  window.location.href = "#";
+  window.location.href = "";
 }
 
 function updateCartDetails(){
