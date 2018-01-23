@@ -5,7 +5,7 @@
 }
 
 body {
-  margin: 70px 0px 0px 0px;
+  margin: 65px 0px 0px 0px;
   padding: 0;
   background-color: #F1EDEC;
   font-family: 'Dosis', sans-serif;
@@ -16,35 +16,34 @@ header{
   position: fixed;
   top: 0;
   left: 0;
-  height: 70px;
+  height: 65px;
   width: 100%;
+  padding: 0px 30px;
   background-color: white;
   z-index: 1000;
+  font-size: 23px;
   display: -webkit-flex;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-flow: row wrap; */
-}
-
-header > *{
-  margin: 5px 20px;
-  font-size: 1.5em;
 }
 
 #title{
   font-family: 'Sacramento', cursive;
-  font-size: 3em;
-  cursor: default;
+  font-size: 40px;
+  font-weight: bold;
 }
 
-a:link, a:visited{
-  padding: 5px 8px;
+.header-links{
   color: #555555;
   text-decoration: none;
 }
 
-div > a:hover{
+.cart-button{
+  padding: 5px 8px;
+}
+
+.cart-button:hover{
   background-color: #E1DFDE;
 }
 
