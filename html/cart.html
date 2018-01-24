@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
   </head>
-  <body>
+  <body onload="displayCartItems()">
     <header>
       <div>
           <a href="./index.html" id="title" class="header-links">Art&Craft</a>
@@ -37,7 +37,7 @@
               </tr>
             </thead>
             <tbody id="cart-table-body">
-              <tr>
+              <!-- <tr>
                 <td>
                   <div class="cart-item-details">
                     <i class="material-icons delete" onclick="removeItem(this)">cancel</i>
@@ -76,7 +76,7 @@
                 <td>
                   <div class="cart-item-price price-column">1950</div>
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td colspan="2">TOTAL</td>
                 <td><span id="total-amount" class="price-column">2590</span></td>

@@ -857,7 +857,41 @@ var items=[
 ];
 
 var cartItems=[
-
+  {
+    name: 'Cat Washi Tape',
+    category: 'washi-tapes',
+    seller: 'Hexawata',
+    number: 8,
+    image: '../images/catwashitape.jpg',
+    price: 640,
+    description: ['Material: Paper','Width:1.5cm','Length: 10m'],
+    availableQuantity: 5,
+    size: '',
+    colours:[],
+  },
+  {
+    name: 'DIY Craft Scissors',
+    category: 'art-accessories',
+    seller: 'Wave Edge Craft',
+    number: 6,
+    image: '../images/craftscissors.jpg',
+    price: 400,
+    description: ['One lot including 6 different designs','Material: Metal and Plastic','Size: 5inch'],
+    availableQuantity: 8,
+    size: '',
+  },
+  {
+    name: 'Super Value Brush Set',
+    category: 'art-accessories',
+    seller: 'Royal and Langnickel',
+    number: 10,
+    image: '../images/paintbrush.jpeg',
+    price: 850,
+    description: ['Polymer handle, paint will not chip off like it can tend to do with a wooden handle',
+    'Gold Seamless Aluminium Ferrule'],
+    availableQuantity: 4,
+    size: '',
+  }
 ];
 
 function displayCartCount(){
@@ -971,13 +1005,34 @@ function incrementCartCount(ele){
   removePopupChildren();
 }
 
-// function displayCart(){
-//   var cartTableBody = document.getElementById('cart-table-body');
-//   var tableHTML = "";
-//   for(item in cartItems){
-//     var tableRow = document.createElement("tr");
-//   }
-// }
+function displayCartItems(){
+  displayCartCount();
+  var cartTableBody = document.getElementById('cart-table-body');
+  cartItems.forEach((item) => {
+    var tableRow = document.createElement("tr");
+    tableRow.innerHTML = `
+      <td>
+        <div class="cart-item-details">
+          <i class="material-icons delete" onclick="removeItem(this)">cancel</i>
+          <img class="cart-item-image" src=${item.image}>
+          <div class="cart-item-description">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-detail">Pack of eight</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div>
+          <input class="cart-item-qty" type="number" size="1" value="1" min="1" >
+        </div>
+      </td>
+      <td>
+        <div class="cart-item-price price-column">${item.price}</div>
+      </td>
+    `;
+    cartTableBody.prepend(tableRow);
+  });
+}
 
 function updateCartDetails(){
   var prices = document.getElementsByClassName('cart-item-price');
