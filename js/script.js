@@ -1067,6 +1067,7 @@ function updatePrice(ele){
     index++;
   }
   if(ele.value > items[index].availableQuantity){
+    alert('You have reached maximum available quantity!');
     ele.value = items[index].availableQuantity;
   }
   parentRow.getElementsByClassName('cart-item-price')[0].innerHTML = ele.value * items[index].price;
