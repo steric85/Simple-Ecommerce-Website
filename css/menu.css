@@ -70,6 +70,7 @@
   text-align: center;
   opacity: 0;
   transition: opacity .35s ease;
+  cursor: pointer;
 }
 
 .view-details a {
@@ -105,10 +106,11 @@
 
 .popup {
   margin: 110px auto;
-  padding: 0px 20px 20px 15px;
+  padding: 15px;
   background: white;
   border-radius: 5px;
   width: 50%;
+  max-height: 600px;
   max-width: 600px;
   min-width: 500px;
   display: flex;
@@ -116,11 +118,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: scroll;
+  position: relative;
 }
 
 #popup-item-details{
   display: -webkit-flex;
   display:flex;
+  align-items: center;
+  padding-top: 17px;
 }
 
 .popup-item-text{
@@ -131,35 +137,40 @@
 }
 
 .popup-item-image{
-  width: 50%;
-  padding: 0px 20px;
-  height: 275px;
+  width: 36%;
+  margin: 0px 20px;
+  height: 200px;
 }
 
 .popup-item-name{
   font-size: 27px;
   font-weight: bold;
+  text-align: center;
 }
 
 .popup-item-seller{
   font-size: 18px;
+  text-align: center;
+  margin-top: 5px;
 }
 
-.popup-item-description, .popup-item-quantity{
+.popup-item-description{
   font-size: 20px;
 }
 
 .popup-item-price{
   font-size: 20px;
   font-weight: bold;
+  text-align: center;
 }
 
 .close{
   align-self: flex-end;
   color: #443935;
   font-size: 35px;
-  margin-top: 5px;
   text-decoration: none;
+  position: absolute;
+  top: 0px;
 }
 
 .add-to-cart-button{
@@ -173,7 +184,6 @@
   font-weight: bold;
   font-size: 1.5em;
   border-radius: 7px;
-  transition-duration: 0.1s;
   cursor: pointer;
   width: 45%;
   margin-top: 10px;

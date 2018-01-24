@@ -33,10 +33,10 @@
               <tr>
                 <th>ITEMS</th>
                 <th>QTY.</th>
-                <th>PRICE (INR)</th>
+                <th class="price-column">PRICE (INR)</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="cart-table-body">
               <tr>
                 <td>
                   <div class="cart-item-details">
@@ -54,7 +54,7 @@
                   </div>
                 </td>
                 <td>
-                  <div class="cart-item-price">640</div>
+                  <div class="cart-item-price price-column">640</div>
                 </td>
               </tr>
               <tr>
@@ -74,12 +74,12 @@
                   </div>
                 </td>
                 <td>
-                  <div class="cart-item-price">1950</div>
+                  <div class="cart-item-price price-column">1950</div>
                 </td>
               </tr>
               <tr>
                 <td colspan="2">TOTAL</td>
-                <td><span id="total-amount">2590</span></td>
+                <td><span id="total-amount" class="price-column">2590</span></td>
               </tr>
             </tbody>
         </table>
