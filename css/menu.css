@@ -16,7 +16,7 @@
 
 .item{
   background-color: white;
-  border: 1px solid #E1DFDE;
+  border: 1.25px solid white;
   padding: 10px;
   margin: 1%;
   display: -webkit-flex;
@@ -49,7 +49,7 @@
   margin-top: 3px;
 }
 
-.overlay {
+/* .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -57,12 +57,13 @@
   height: 100%;
   background: rgba(0, 0, 0, 0);
   transition: background 0.5s ease;
-}
+} */
 
-.item:hover .overlay {
-  background: rgba(0, 0, 0, .5);
+.item:hover{
+  cursor: pointer;
+  border: 1.25px solid #E1DFDE;
 }
-
+/*
 .view-details{
   position: absolute;
   left: 25%;
@@ -81,11 +82,11 @@
   font-size: 20px;
   font-weight: bolder;
   text-decoration: none;
-}
+} */
 
-.item:hover .view-details {
+/* .item:hover .view-details {
   opacity: 1;
-}
+} */
 
 .layer {
   position: fixed;

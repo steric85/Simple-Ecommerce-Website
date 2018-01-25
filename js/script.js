@@ -931,14 +931,13 @@ function displayItems(){
   items.forEach((item) => {
     if(item.category == categoryName){
       var itemNode = document.createElement("div");
+      itemNode.setAttribute("onclick","openPopup(this)");
       itemNode.setAttribute("class","item");
       itemNode.innerHTML = `
         <img class="item-image" src=${item.image} alt="Item image">
         <div class="item-name">${item.name}</div>
         <div class="item-seller">${item.seller}</div>
         <div class="item-price">Rs. ${item.price}</div>
-        <div class="overlay"></div>
-        <div class="view-details"><a onclick="openPopup(this)">VIEW DETAILS</a></div>
       `;
       itemList.appendChild(itemNode);
     }
