@@ -1,2 +1,2 @@
 # Simple-Ecommerce-Website
-Ecommerce webiste for buying Art and Craft items.
+Ecommerce website for buying Art and Craft items.
