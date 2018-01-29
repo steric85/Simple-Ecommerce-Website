@@ -20,6 +20,7 @@
   font-size: 32px;
   font-weight: bold;
   text-decoration: underline;
+  text-transform: uppercase;
   margin-bottom: 40px;
 }
 
@@ -115,6 +116,7 @@ tbody>tr:last-child>td {
   transition-duration: 0.4s;
   cursor: pointer;
   margin-top: 70px;
+  text-transform: uppercase;
 }
 
 .order-button:hover {

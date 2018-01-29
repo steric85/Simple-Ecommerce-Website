@@ -5,6 +5,7 @@
   font-size: 22px;
   font-weight: bold;
   text-align: center;
+  text-transform: uppercase;
 }
 
 #item-list{
@@ -16,7 +17,7 @@
 
 .item{
   background-color: white;
-  border: 1.25px solid white;
+  border: 1.5px solid white;
   padding: 10px;
   margin: 1%;
   display: -webkit-flex;
@@ -26,10 +27,11 @@
   width: 20%;
   min-width: 210px;
   position: relative;
+  text-align: center;
 }
 
 .item-image{
-  width: 60%;
+  width: 69%;
   height: 175px;
 }
 
@@ -61,7 +63,7 @@
 
 .item:hover{
   cursor: pointer;
-  border: 1.25px solid #E1DFDE;
+  border: 1.5px solid #E1DFDE;
 }
 /*
 .view-details{
@@ -126,7 +128,6 @@
 #popup-item-details{
   display: -webkit-flex;
   display:flex;
-  align-items: center;
   padding-top: 17px;
 }
 
@@ -138,31 +139,30 @@
 }
 
 .popup-item-image{
-  width: 36%;
-  margin: 0px 20px;
-  height: 200px;
+  width: 32%;
+  margin: 0px 27px 0px 20px;
+  height: 182px;
+  align-self: center;
 }
 
 .popup-item-name{
   font-size: 27px;
   font-weight: bold;
-  text-align: center;
 }
 
 .popup-item-seller{
   font-size: 18px;
-  text-align: center;
   margin-top: 5px;
 }
 
 .popup-item-description{
-  font-size: 20px;
+  font-size: 17px;
+  padding-left: 20px;
 }
 
 .popup-item-price{
   font-size: 20px;
   font-weight: bold;
-  text-align: center;
 }
 
 .close{
@@ -187,7 +187,8 @@
   border-radius: 7px;
   cursor: pointer;
   width: 45%;
-  margin-top: 10px;
+  margin-top: 30px;
+  text-transform: uppercase;
 }
 
 .add-to-cart-button:hover {

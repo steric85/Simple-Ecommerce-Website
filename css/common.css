@@ -63,6 +63,13 @@ header{
   padding: 0px 5px;
 }
 
+.ellipsis{
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 /* To remove blue border from css custom-styled button */
 button:focus {
   outline: 0;

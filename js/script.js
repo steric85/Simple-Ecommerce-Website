@@ -1,18 +1,18 @@
 var categories=[
   {
-    name: 'DESIGNER PAPERS',
+    name: 'Designer Papers',
     image: '../images/designerpapers.jpg',
   },
   {
-    name: 'CRAFT PUNCHES',
+    name: 'Craft Punches',
     image: '../images/craftpunches.jpg',
   },
   {
-    name: 'WASHI TAPES',
+    name: 'Washi Tapes',
     image: '../images/washitape.jpg',
   },
   {
-    name: 'ART ACCESSORIES',
+    name: 'Art Accessories',
     image: '../images/artaccessories.jpeg',
   },
 ];
@@ -908,7 +908,7 @@ function displayCategories(){
     categoryNode.setAttribute("onclick","displayCategoryItems(this)");
     categoryNode.innerHTML = `
       <img class ="category-image" src=${category.image} alt="${category.name}">
-      <div class="category-name"> ${category.name.toUpperCase()} </div>
+      <div class="category-name"> ${category.name} </div>
     `;
     categoryList.appendChild(categoryNode);
   });
@@ -916,7 +916,7 @@ function displayCategories(){
 
 function displayCategoryItems(ele){
   var category = ele.getElementsByClassName('category-name')[0].innerHTML.toString().trim();
-  window.location.href = "menu.html?category="+category;
+  window.location.href = "itemlist.html?category="+category;
 }
 
 function displayItems(){
@@ -935,8 +935,8 @@ function displayItems(){
       itemNode.setAttribute("class","item");
       itemNode.innerHTML = `
         <img class="item-image" src=${item.image} alt="Item image">
-        <div class="item-name">${item.name}</div>
-        <div class="item-seller">${item.seller}</div>
+        <div class="item-name ellipsis">${item.name}</div>
+        <div class="item-seller ellipsis">${item.seller}</div>
         <div class="item-price">Rs. ${item.price}</div>
       `;
       itemList.appendChild(itemNode);
@@ -963,8 +963,8 @@ function openPopup(ele){
   var htmlText =`
     <div class="popup-item-name">${items[index].name}</div>
     <div class="popup-item-seller">${items[index].seller}</div>
-    <div class="popup-item-description">
-      <ul>`;
+    <div>
+      <ul class="popup-item-description">`;
   items[index].description.forEach((element) => {
     var listNode = document.createElement("li");
     listNode.innerHTML = element;
