@@ -18,7 +18,7 @@ var categories=[
     id: 'art-accessories',
     name: 'Art Accessories',
     image: '../images/artaccessories.jpeg',
-  },
+  }
 ];
 
 var items=[
@@ -529,10 +529,24 @@ var items=[
   },
 ];
 
-// Id of cart items
-var cartItemIds=['wt1','aa10','aa7'];
+function getCartList(){
+  return JSON.parse(localStorage.getItem('cartItemIds'));
+}
+
+function addToCartList(itemId){
+  var cartItemIds = getCartList() || [];
+  cartItemIds.push(itemId);
+  localStorage.setItem('cartItemIds',JSON.stringify(cartItemIds));
+}
+
+function removeFromCartList(itemId){
+  var cartItemIds = getCartList() || [];
+  cartItemIds.splice(itemId,1);
+  localStorage.setItem('cartItemIds',JSON.stringify(cartItemIds));
+}
 
 function displayCartCount(){
+  var cartItemIds = getCartList() || [];
   var countElement =  document.getElementById('cart-items-count');
   countElement.innerHTML = cartItemIds.length;
 }
@@ -648,11 +662,12 @@ function removePopupChildren(){
 }
 
 function incrementCartCount(){
-  var itemId = document.getElementById('popup-item-details').dataset.popupItemId;
-      // popupItem = items.find(function(item){
-      //   return (item.id == itemId);
-      // });
-  (cartItemIds.indexOf(itemId)>=0) ? cartItemIds:cartItemIds.push(itemId);
+  var itemId = document.getElementById('popup-item-details').dataset.popupItemId,
+      cartItemIds = getCartList() || [];
+  if(cartItemIds.indexOf(itemId)<0)
+  {
+    addToCartList(itemId);
+  }
   displayCartCount();
   window.location.href = `#!`;
   removePopupChildren();
@@ -660,7 +675,8 @@ function incrementCartCount(){
 
 function displayCartItems(){
   displayCartCount();
-  var cartTableBody = document.getElementById('cart-table-body');
+  var cartTableBody = document.getElementById('cart-table-body'),
+      cartItemIds = getCartList() || [];
   cartItemIds.forEach((id) => {
     cartItem = items.find(function(item){
         return (item.id == id);
@@ -689,6 +705,7 @@ function displayCartItems(){
     `;
     cartTableBody.prepend(tableRow);
   });
+  updateCartDetails();
 }
 
 function updateCartDetails(){
@@ -707,21 +724,17 @@ function updateCartDetails(){
 function removeItem(ele){
   var parentRow = ele.closest('tr'),
       cartItemId = parentRow.dataset.itemId;
-  //     cartItemIndex = cartItemIds.findIndex(function(cartItem){
-  //   return (cartItem.id == cartItemId);
-  // });
-  cartItemIds.splice(cartItemId,1);
+  removeFromCartList(cartItemId);
   parentRow.parentNode.removeChild(parentRow);
   updateCartDetails();
 }
 
-function updatePrice(ele){
+function updateItemPrice(ele){
   var parentRow = ele.closest('tr'),
       cartItemId = parentRow.dataset.itemId,
       cartItem = items.find(function(item){
           return (item.id == cartItemId);
       });
-      // itemName = parentRow.getElementsByClassName('cart-item-name')[0].innerHTML.toString();
   if(ele.value <= 0){
     ele.value = 1;
   }
@@ -733,6 +746,6 @@ function updatePrice(ele){
 }
 
 document.addEventListener('input',function(e){
-  updatePrice(e.target);
+  updateItemPrice(e.target);
   updateCartDetails();
 },false);
