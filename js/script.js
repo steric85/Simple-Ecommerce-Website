@@ -529,66 +529,39 @@ var items=[
   },
 ];
 
-var cartItems=[
-  {
-    id: 'wt1',
-    name: 'Cat Washi Tape',
-    category: 'washi-tapes',
-    seller: 'Hexawata',
-    number: 8,
-    image: '../images/catwashitape.jpg',
-    price: 640,
-    description: ['Material: Paper','Width:1.5cm','Length: 10m'],
-    availableQuantity: 5,
-    size: '',
-    colours:[],
-  },
-  {
-    id: 'aa10',
-    name: 'DIY Craft Scissors',
-    category: 'art-accessories',
-    seller: 'Wave Edge Craft',
-    number: 6,
-    image: '../images/craftscissors.jpg',
-    price: 400,
-    description: ['One lot including 6 different designs','Material: Metal and Plastic','Size: 5inch'],
-    availableQuantity: 8,
-    size: '',
-  },
-  {
-    id: 'aa7',
-    name: 'Super Value Brush Set',
-    category: 'art-accessories',
-    seller: 'Royal and Langnickel',
-    number: 10,
-    image: '../images/paintbrush.jpeg',
-    price: 850,
-    description: ['Polymer handle, paint will not chip off like it can tend to do with a wooden handle',
-    'Gold Seamless Aluminium Ferrule'],
-    availableQuantity: 4,
-    size: '',
-  }
-];
+// Id of cart items
+var cartItemIds=['wt1','aa10','aa7'];
 
 function displayCartCount(){
   var countElement =  document.getElementById('cart-items-count');
-  countElement.innerHTML = cartItems.length;
+  countElement.innerHTML = cartItemIds.length;
 }
 
 function displayCategories(){
   displayCartCount();
-  var categoryList = document.getElementById('category-list');
+  var categoryList = document.getElementById('category-list'),
+      fragment = document.createDocumentFragment(),
+      categoryNode,
+      categoryImage;
+
   categories.forEach((category) => {
-    var categoryNode = document.createElement("div");
+    categoryNode = document.createElement("div");
     categoryNode.setAttribute("class","category");
     categoryNode.setAttribute("data-id",`${category.id}`);
     categoryNode.setAttribute("onclick","displayCategoryItems(this)");
-    categoryNode.innerHTML = `
-      <img class ="category-image" src=${category.image} alt="${category.name}">
-      <div class="category-name"> ${category.name} </div>
-    `;
-    categoryList.appendChild(categoryNode);
+    categoryImage = document.createElement("img");
+    categoryImage.setAttribute("class","category-image");
+    categoryImage.setAttribute("src",`${category.image}`);
+    categoryImage.setAttribute("alt",`${category.name}`);
+    categoryNameDiv = document.createElement("div");
+    categoryNameDiv.setAttribute("class","category-name");
+    categoryNameDiv.appendChild(document.createTextNode(`${category.name}`));
+    categoryNode.appendChild(categoryImage);
+    categoryNode.appendChild(categoryNameDiv);
+    fragment.appendChild(categoryNode);
   });
+
+  categoryList.appendChild(fragment);
 }
 
 function displayCategoryItems(ele){
@@ -600,23 +573,37 @@ function displayItems(){
   displayCartCount();
   var category = window.location.search,
       categoryId = category.slice(category.indexOf('=')+1),
-      itemList = document.getElementById('item-list');
-  document.getElementById('menu-title').innerHTML = categoryId.replace('-',' ');
+      itemList = document.getElementById('item-list'),
+      fragment = document.createDocumentFragment(),
+      itemNode,itemName,itemSeller,itemImage,itemPrice;
+  document.getElementById('menu-title').appendChild(document.createTextNode(categoryId.replace('-',' ')));
   items.forEach((item) => {
     if(item.category == categoryId){
-      var itemNode = document.createElement("div");
+      itemNode = document.createElement("div");
       itemNode.setAttribute("onclick","openPopup(this)");
       itemNode.setAttribute("class","item");
       itemNode.setAttribute("data-id",`${item.id}`);
-      itemNode.innerHTML = `
-        <img class="item-image" src=${item.image} alt="Item image">
-        <div class="item-name ellipsis">${item.name}</div>
-        <div class="item-seller ellipsis">${item.seller}</div>
-        <div class="item-price">Rs. ${item.price}</div>
-      `;
-      itemList.appendChild(itemNode);
+      itemImage = document.createElement('img');
+      itemImage.setAttribute("class","item-image");
+      itemImage.setAttribute("src",`${item.image}`);
+      itemImage.setAttribute("alt","Item image");
+      itemName = document.createElement('div');
+      itemName.setAttribute("class","item-name ellipsis");
+      itemName.appendChild(document.createTextNode(`${item.name}`));
+      itemSeller = document.createElement('div');
+      itemSeller.setAttribute("class","item-seller ellipsis");
+      itemSeller.appendChild(document.createTextNode(`${item.seller}`));
+      itemPrice = document.createElement('div');
+      itemPrice.setAttribute("class","item-price");
+      itemPrice.appendChild(document.createTextNode(`Rs. ${item.price}`));
+      itemNode.appendChild(itemImage);
+      itemNode.appendChild(itemName);
+      itemNode.appendChild(itemSeller);
+      itemNode.appendChild(itemPrice);
+      fragment.appendChild(itemNode);
     }
   });
+  itemList.appendChild(fragment);
 }
 
 function openPopup(ele){
@@ -640,7 +627,7 @@ function openPopup(ele){
   textNode.setAttribute("class","popup-item-text");
   itemSelected.description.forEach((element) => {
     var listNode = document.createElement("li");
-    listNode.innerHTML = element;
+    listNode.appendChild(document.createTextNode(element));
     htmlText += listNode.outerHTML;
   })
   htmlText +=`</ul>
@@ -661,11 +648,11 @@ function removePopupChildren(){
 }
 
 function incrementCartCount(){
-  var itemId = document.getElementById('popup-item-details').dataset.popupItemId,
-      popupItem = items.find(function(item){
-    return (item.id == itemId);
-  });
-  (cartItems.indexOf(popupItem)>=0) ? cartItems:cartItems.push(popupItem);
+  var itemId = document.getElementById('popup-item-details').dataset.popupItemId;
+      // popupItem = items.find(function(item){
+      //   return (item.id == itemId);
+      // });
+  (cartItemIds.indexOf(itemId)>=0) ? cartItemIds:cartItemIds.push(itemId);
   displayCartCount();
   window.location.href = `#!`;
   removePopupChildren();
@@ -674,16 +661,19 @@ function incrementCartCount(){
 function displayCartItems(){
   displayCartCount();
   var cartTableBody = document.getElementById('cart-table-body');
-  cartItems.forEach((item) => {
+  cartItemIds.forEach((id) => {
+    cartItem = items.find(function(item){
+        return (item.id == id);
+    });
     var tableRow = document.createElement("tr");
-    tableRow.setAttribute("data-item-id",`${item.id}`);
+    tableRow.setAttribute("data-item-id",`${cartItem.id}`);
     tableRow.innerHTML = `
       <td>
         <div class="cart-item-details">
           <i class="material-icons delete" onclick="removeItem(this)">cancel</i>
-          <img class="cart-item-image" src=${item.image}>
+          <img class="cart-item-image" src=${cartItem.image}>
           <div class="cart-item-description">
-            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-name">${cartItem.name}</div>
             <div class="cart-item-detail">Pack of eight</div>
           </div>
         </div>
@@ -694,7 +684,7 @@ function displayCartItems(){
         </div>
       </td>
       <td>
-        <div class="cart-item-price price-column">${item.price}</div>
+        <div class="cart-item-price price-column">${cartItem.price}</div>
       </td>
     `;
     cartTableBody.prepend(tableRow);
@@ -716,11 +706,11 @@ function updateCartDetails(){
 
 function removeItem(ele){
   var parentRow = ele.closest('tr'),
-      cartItemId = parentRow.dataset.itemId,
-      cartItemIndex = cartItems.findIndex(function(cartItem){
-    return (cartItem.id == cartItemId);
-  });
-  cartItems.splice(cartItemIndex,1);
+      cartItemId = parentRow.dataset.itemId;
+  //     cartItemIndex = cartItemIds.findIndex(function(cartItem){
+  //   return (cartItem.id == cartItemId);
+  // });
+  cartItemIds.splice(cartItemId,1);
   parentRow.parentNode.removeChild(parentRow);
   updateCartDetails();
 }
@@ -728,10 +718,10 @@ function removeItem(ele){
 function updatePrice(ele){
   var parentRow = ele.closest('tr'),
       cartItemId = parentRow.dataset.itemId,
-      cartItem = cartItems.find(function(cartItem){
-          return (cartItem.id == cartItemId);
-      }),
-      itemName = parentRow.getElementsByClassName('cart-item-name')[0].innerHTML.toString();
+      cartItem = items.find(function(item){
+          return (item.id == cartItemId);
+      });
+      // itemName = parentRow.getElementsByClassName('cart-item-name')[0].innerHTML.toString();
   if(ele.value <= 0){
     ele.value = 1;
   }
