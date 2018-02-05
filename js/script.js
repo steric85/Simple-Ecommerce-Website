@@ -530,25 +530,29 @@ var items=[
 ];
 
 function getCartList(){
-  return JSON.parse(localStorage.getItem('cartItemIds'));
+  return JSON.parse(localStorage.getItem('cartItems'));
 }
 
-function addToCartList(itemId){
-  var cartItemIds = getCartList() || [];
-  cartItemIds.push(itemId);
-  localStorage.setItem('cartItemIds',JSON.stringify(cartItemIds));
+function addToCartList(item){
+  var cartItems = getCartList() || [];
+  cartItems.push(item);
+  localStorage.setItem('cartItems',JSON.stringify(cartItems));
 }
 
 function removeFromCartList(itemId){
-  var cartItemIds = getCartList() || [];
-  cartItemIds.splice(itemId,1);
-  localStorage.setItem('cartItemIds',JSON.stringify(cartItemIds));
+  var cartItems = getCartList() || [],
+      index = cartItems.findIndex((item) => {
+    return (item.id == itemId);
+  });
+  cartItems.splice(index,1);
+  localStorage.setItem('cartItems',JSON.stringify(cartItems));
 }
 
 function displayCartCount(){
-  var cartItemIds = getCartList() || [];
-  var countElement =  document.getElementById('cart-items-count');
-  countElement.innerHTML = cartItemIds.length;
+  var cartItems = getCartList() || [],
+      cartCount = cartItems.reduce((accumulator, currentItem) => accumulator + parseInt(currentItem.quantity),0),
+      countElement =  document.getElementById('cart-items-count');
+  countElement.innerHTML = cartCount;
 }
 
 function displayCategories(){
@@ -663,10 +667,13 @@ function removePopupChildren(){
 
 function incrementCartCount(){
   var itemId = document.getElementById('popup-item-details').dataset.popupItemId,
-      cartItemIds = getCartList() || [];
-  if(cartItemIds.indexOf(itemId)<0)
+      cartItems = getCartList() || [];
+  if(cartItems.indexOf(itemId)<0)
   {
-    addToCartList(itemId);
+    addToCartList({
+      'id':itemId,
+      'quantity':1,
+    });
   }
   displayCartCount();
   window.location.href = `#!`;
@@ -676,12 +683,13 @@ function incrementCartCount(){
 function displayCartItems(){
   displayCartCount();
   var cartTableBody = document.getElementById('cart-table-body'),
-      cartItemIds = getCartList() || [];
-  cartItemIds.forEach((id) => {
+      cartItems = getCartList() || [];
+  cartItems.forEach((cItem) => {
     cartItem = items.find(function(item){
-        return (item.id == id);
+        return (item.id == cItem.id);
     });
-    var tableRow = document.createElement("tr");
+    var tableRow = document.createElement("tr"),
+        totalItemPrice = cartItem.price * cItem.quantity;
     tableRow.setAttribute("data-item-id",`${cartItem.id}`);
     tableRow.innerHTML = `
       <td>
@@ -696,37 +704,46 @@ function displayCartItems(){
       </td>
       <td>
         <div>
-          <input class="cart-item-qty" type="number" size="1" value="1" min="1" >
+          <input class="cart-item-qty" type="number" size="1" value=${cItem.quantity} min="1" >
         </div>
       </td>
       <td>
-        <div class="cart-item-price price-column">${cartItem.price}</div>
+        <div class="cart-item-price price-column">${totalItemPrice}</div>
       </td>
     `;
     cartTableBody.prepend(tableRow);
   });
-  updateCartDetails();
+  updateCartTotal();
 }
 
-function updateCartDetails(){
+function updateCartTotal(){
   var prices = document.getElementsByClassName('cart-item-price'),
-      qty = document.getElementsByClassName('cart-item-qty'),
-      total = 0,
-      totalQty = 0;
+      total = 0;
   for(var i=0;i< prices.length;i++){
     total += parseInt(prices.item(i).innerHTML);
-    totalQty += (parseInt(qty.item(i).value)||0);
   }
   document.getElementById('total-amount').innerHTML=total;
-  document.getElementById('cart-items-count').innerHTML=totalQty;
 }
 
 function removeItem(ele){
   var parentRow = ele.closest('tr'),
       cartItemId = parentRow.dataset.itemId;
+      //qty = parseInt(parentRow.getElementsByClassName('cart-item-qty')[0].value);
   removeFromCartList(cartItemId);
   parentRow.parentNode.removeChild(parentRow);
-  updateCartDetails();
+  updateCartTotal();
+  displayCartCount();
+}
+
+function updateCartListQuantity(ele){
+  var quantity = ele.value,
+      cartItemId = ele.closest('tr').dataset.itemId,
+      cartItems = getCartList();
+  removeFromCartList(cartItemId);
+  addToCartList({
+    'id':cartItemId,
+    'quantity':ele.value,
+  });
 }
 
 function updateItemPrice(ele){
@@ -747,5 +764,7 @@ function updateItemPrice(ele){
 
 document.addEventListener('input',function(e){
   updateItemPrice(e.target);
-  updateCartDetails();
+  updateCartListQuantity(e.target);
+  updateCartTotal();
+  displayCartCount();
 },false);
