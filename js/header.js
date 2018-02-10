@@ -1,14 +1,14 @@
 const HEADER = (function(){
-
-  const model = {
-    init: function(){
-      DATABASE.init();
-    }
-  };
+  //
+  // const model = {
+  //   init: function(){
+  //     DATABASE.init();
+  //   }
+  // };
 
   const octopus = {
     init: function(){
-      model.init();
+      // model.init();
       view.init();
     },
     getCartCount: function(){
