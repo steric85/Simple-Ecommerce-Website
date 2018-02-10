@@ -530,17 +530,17 @@ var items=[
 ];
 
 function getCartList(){
-  return JSON.parse(localStorage.getItem('cartItems'));
+  return JSON.parse(localStorage.getItem('cartItems')) || [];
 }
 
 function addToCartList(item){
-  var cartItems = getCartList() || [];
+  var cartItems = getCartList();
   cartItems.push(item);
   localStorage.setItem('cartItems',JSON.stringify(cartItems));
 }
 
 function removeFromCartList(itemId){
-  var cartItems = getCartList() || [],
+  var cartItems = getCartList(),
       index = cartItems.findIndex((item) => {
     return (item.id == itemId);
   });
@@ -549,7 +549,7 @@ function removeFromCartList(itemId){
 }
 
 function displayCartCount(){
-  var cartItems = getCartList() || [],
+  var cartItems = getCartList(),
       cartCount = cartItems.reduce((accumulator, currentItem) => accumulator + parseInt(currentItem.quantity),0),
       countElement =  document.getElementById('cart-items-count');
   countElement.innerHTML = cartCount;
@@ -564,11 +564,11 @@ function displayCategories(){
 
   categories.forEach((category) => {
     categoryNode = document.createElement("div");
-    categoryNode.setAttribute("class","category");
+    categoryNode.className = 'category';
     categoryNode.setAttribute("data-id",`${category.id}`);
     categoryNode.setAttribute("onclick","displayCategoryItems(this)");
     categoryImage = document.createElement("img");
-    categoryImage.setAttribute("class","category-image");
+    categoryImage.className = 'category-image';
     categoryImage.setAttribute("src",`${category.image}`);
     categoryImage.setAttribute("alt",`${category.name}`);
     categoryNameDiv = document.createElement("div");
@@ -601,23 +601,33 @@ function displayItems(){
       itemNode.setAttribute("onclick","openPopup(this)");
       itemNode.setAttribute("class","item");
       itemNode.setAttribute("data-id",`${item.id}`);
-      itemImage = document.createElement('img');
-      itemImage.setAttribute("class","item-image");
-      itemImage.setAttribute("src",`${item.image}`);
-      itemImage.setAttribute("alt","Item image");
-      itemName = document.createElement('div');
-      itemName.setAttribute("class","item-name ellipsis");
-      itemName.appendChild(document.createTextNode(`${item.name}`));
-      itemSeller = document.createElement('div');
-      itemSeller.setAttribute("class","item-seller ellipsis");
-      itemSeller.appendChild(document.createTextNode(`${item.seller}`));
-      itemPrice = document.createElement('div');
-      itemPrice.setAttribute("class","item-price");
-      itemPrice.appendChild(document.createTextNode(`Rs. ${item.price}`));
-      itemNode.appendChild(itemImage);
-      itemNode.appendChild(itemName);
-      itemNode.appendChild(itemSeller);
-      itemNode.appendChild(itemPrice);
+      itemNode.innerHTML = `
+      <img class="item-image" src=${item.image} alt="Item image">
+      <div class="item-div">
+        <div class="item-details">
+          <div class="item-name ellipsis">${item.name}</div>
+          <div class="item-seller ellipsis">${item.seller}</div>
+          <div class="item-price">Rs. ${item.price}</div>
+        </div>
+        <i class="material-icons quick-add" onclick="incrementCartCount()">add_shopping_cart</i>
+      </div>`;
+      // itemImage = document.createElement('img');
+      // itemImage.setAttribute("class","item-image");
+      // itemImage.setAttribute("src",`${item.image}`);
+      // itemImage.setAttribute("alt","Item image");
+      // itemName = document.createElement('div');
+      // itemName.setAttribute("class","item-name ellipsis");
+      // itemName.appendChild(document.createTextNode(`${item.name}`));
+      // itemSeller = document.createElement('div');
+      // itemSeller.setAttribute("class","item-seller ellipsis");
+      // itemSeller.appendChild(document.createTextNode(`${item.seller}`));
+      // itemPrice = document.createElement('div');
+      // itemPrice.setAttribute("class","item-price");
+      // itemPrice.appendChild(document.createTextNode(`Rs. ${item.price}`));
+      // itemNode.appendChild(itemImage);
+      // itemNode.appendChild(itemName);
+      // itemNode.appendChild(itemSeller);
+      // itemNode.appendChild(itemPrice);
       fragment.appendChild(itemNode);
     }
   });
@@ -625,6 +635,7 @@ function displayItems(){
 }
 
 function openPopup(ele){
+  console.log('in openPopup');
   var itemId = ele.closest('.item').dataset.id,
       itemSelected = items.find(function(item){
         return (item.id == itemId);
@@ -665,9 +676,13 @@ function removePopupChildren(){
   }
 }
 
-function incrementCartCount(){
-  var itemId = document.getElementById('popup-item-details').dataset.popupItemId,
-      cartItems = getCartList() || [];
+function incrementCartCount(e){
+  if (!e) var e = window.event;
+  const isQuickAdd = e.target.getAttribute("class").includes("quick-add"),
+        itemId = isQuickAdd ? e.target.closest('.item').dataset.id :
+                  document.getElementById('popup-item-details').dataset.popupItemId,
+        cartItems = getCartList();
+
   if(cartItems.indexOf(itemId)<0)
   {
     addToCartList({
@@ -676,6 +691,14 @@ function incrementCartCount(){
     });
   }
   displayCartCount();
+  if(isQuickAdd){
+    e.cancelBubble = true;
+    if (e.stopPropagation)
+    {
+      e.stopPropagation();
+    }
+    return;
+  }
   window.location.href = `#!`;
   removePopupChildren();
 }
@@ -683,7 +706,7 @@ function incrementCartCount(){
 function displayCartItems(){
   displayCartCount();
   var cartTableBody = document.getElementById('cart-table-body'),
-      cartItems = getCartList() || [];
+      cartItems = getCartList();
   cartItems.forEach((cItem) => {
     cartItem = items.find(function(item){
         return (item.id == cItem.id);
@@ -742,7 +765,7 @@ function updateCartListQuantity(ele){
   removeFromCartList(cartItemId);
   addToCartList({
     'id':cartItemId,
-    'quantity':ele.value,
+    'quantity':parseInt(ele.value),
   });
 }
 
