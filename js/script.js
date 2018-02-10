@@ -556,7 +556,7 @@ function displayCartCount(){
 }
 
 function displayCategories(){
-  displayCartCount();
+  // displayCartCount();
   var categoryList = document.getElementById('category-list'),
       fragment = document.createDocumentFragment(),
       categoryNode,
@@ -588,7 +588,7 @@ function displayCategoryItems(ele){
 }
 
 function displayItems(){
-  displayCartCount();
+  // displayCartCount();
   var category = window.location.search,
       categoryId = category.slice(category.indexOf('=')+1),
       itemList = document.getElementById('item-list'),
@@ -704,7 +704,7 @@ function incrementCartCount(e){
 }
 
 function displayCartItems(){
-  displayCartCount();
+  // displayCartCount();
   var cartTableBody = document.getElementById('cart-table-body'),
       cartItems = getCartList();
   cartItems.forEach((cItem) => {

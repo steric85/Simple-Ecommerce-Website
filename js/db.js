@@ -32,9 +32,9 @@ const DATABASE = (function(){
       number: 12,
       image: "../images/bluepapers.jpg",
       price: 240,
-      description: ["8" x 8" paper pack","150gsm","acid and lignin free"],
+      description: ["8 x 8 paper pack","150gsm","acid and lignin free"],
       availableQuantity: 5,
-      size: "8"x8"",
+      size: "8x8",
     },
     {
       id: "dp2",
@@ -133,9 +133,9 @@ const DATABASE = (function(){
       number: 12,
       image: "../images/bluepapers.jpg",
       price: 240,
-      description: ["8" x 8" paper pack","150gsm","acid and lignin free"],
+      description: ["8 x 8 paper pack","150gsm","acid and lignin free"],
       availableQuantity: 5,
-      size: "8"x8"",
+      size: "8x8",
     },
     {
       id: "dp4",
@@ -234,9 +234,9 @@ const DATABASE = (function(){
       number: 12,
       image: "../images/bluepapers.jpg",
       price: 240,
-      description: ["8" x 8" paper pack","150gsm","acid and lignin free"],
+      description: ["8 x 8 paper pack","150gsm","acid and lignin free"],
       availableQuantity: 5,
-      size: "8"x8"",
+      size: "8x8",
     },
     {
       id: "dp6",
@@ -335,9 +335,9 @@ const DATABASE = (function(){
       number: 12,
       image: "../images/bluepapers.jpg",
       price: 240,
-      description: ["8" x 8" paper pack","150gsm","acid and lignin free"],
+      description: ["8 x 8 paper pack","150gsm","acid and lignin free"],
       availableQuantity: 5,
-      size: "8"x8"",
+      size: "8x8",
     },
     {
       id: "dp8",
@@ -436,9 +436,9 @@ const DATABASE = (function(){
       number: 12,
       image: "../images/bluepapers.jpg",
       price: 240,
-      description: ["8" x 8" paper pack","150gsm","acid and lignin free"],
+      description: ["8 x 8 paper pack","150gsm","acid and lignin free"],
       availableQuantity: 5,
-      size: "8"x8"",
+      size: "8x8",
     },
     {
       id: "dp10",
@@ -534,25 +534,26 @@ const DATABASE = (function(){
   //public
   return {
 
-    function getCategoryList(){
+    init: function(){
+      if(!localStorage.getItem("cartItems")){
+        localStorage.setItem("cartItems",JSON.stringify([]));
+      }
+    },
+    getCategoryList: function(){
       return categoryList;
-    }
-
-    function getitemList(){
+    },
+    getitemList: function(){
       return itemList;
-    }
-
-    function getCartItemList(){
-      return JSON.parse(localStorage.getItem("cartItems")) || [];
-    }
-
-    function addToCartItemList(item){
+    },
+    getCartItemList: function(){
+      return JSON.parse(localStorage.getItem("cartItems"));
+    },
+    addToCartItemList: function(item){
       let cartItems = getCartItemList();
       cartItems.push(item);
       localStorage.setItem("cartItems",JSON.stringify(cartItems));
-    }
-
-    function removeFromCartItemList(itemId){
+    },
+    removeFromCartItemList: function(itemId){
       let cartItems = getCartItemList(),
           index = cartItems.findIndex((item) => {
             return (item.id == itemId);
