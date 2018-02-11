@@ -9,7 +9,7 @@ const ITEMLIST = (function(){
     },
     getItemFromItemList: function(itemId){
       let item = this.getItems().find(function(item){
-        return (item.id == itemId);
+        return (item.id === itemId);
       });
       return item;
     },

@@ -554,13 +554,16 @@ const DATABASE = (function(){
       localStorage.setItem("cartItems",JSON.stringify(cartItems));
     },
     isNotPresentInCart: function(itemId){
-      let cartItems = this.getCartItemList();
-      return (cartItems.indexOf(itemId)<0);
+      let cartItems = this.getCartItemList(),
+          index = cartItems.findIndex(function(item){
+            return item.id === itemId;
+          });
+      return (index<0);
     },
     removeFromCartItemList: function(itemId){
       let cartItems = this.getCartItemList(),
           index = cartItems.findIndex((item) => {
-            return (item.id == itemId);
+            return (item.id === itemId);
           });
       cartItems.splice(index,1);
       localStorage.setItem("cartItems",JSON.stringify(cartItems));
