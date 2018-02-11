@@ -64,7 +64,6 @@ header{
 }
 
 .ellipsis{
-  text-align: left;
   width: 100%;
   text-overflow: ellipsis;
   white-space: nowrap;

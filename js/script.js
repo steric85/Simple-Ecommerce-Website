@@ -587,6 +587,8 @@ function displayCategoryItems(ele){
   window.location.href = `itemlist.html?category=${categoryId}`;
 }
 
+
+
 function displayItems(){
   // displayCartCount();
   var category = window.location.search,
@@ -702,6 +704,13 @@ function incrementCartCount(e){
   window.location.href = `#!`;
   removePopupChildren();
 }
+
+
+
+
+
+
+
 
 function displayCartItems(){
   // displayCartCount();

@@ -10,10 +10,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
   </head>
-  <body onload="displayItems()">
+  <body>
     <script async type="text/javascript" src="../js/db.js"></script>
     <script async type="text/javascript" src="../js/header.js"></script>
-    <script async type="text/javascript" src="../js/script.js"></script>
+    <script async type="text/javascript" src="../js/itemlist.js"></script>
     <header>
       <div>
           <a href="./index.html" id="title" class="header-links">Art&Craft</a>
@@ -31,25 +31,22 @@
     <div id="item-list">
       <!-- <div class="item">
           <img class="item-image" src="../images/craftscissors.jpg" alt="Item image">
-          <div class="item-div">
-            <div class="item-details">
-              <div class="item-name">CAT WASHI TAPE</div>
-              <div class="item-seller">Dovercraft</div>
-              <div class="item-price">Rs. 120</div>
-            </div>
-            <i class="material-icons quick-add" onclick="incrementCartCount()">add_shopping_cart</i>
+          <div class="item-details">
+            <div class="item-name">CAT WASHI TAPE</div>
+            <div class="item-seller">Dovercraft</div>
+            <div class="item-price">Rs. 120</div>
           </div>
+          <i class="material-icons quick-add" onclick="incrementCartCount()">add_shopping_cart</i>
       </div> -->
-
     </div>
 
     <div id="popupbox" class="layer">
       <div class="popup">
-        <a class="close" href="#!" onclick="removePopupChildren()">&times;</a>
+        <a class="close" href="#!">&times;</a>
         <div id="popup-item-details">
 
         </div>
-        <button class="add-to-cart-button" type="button" onclick="incrementCartCount()">Add To Cart</button>
+        <button id="add-to-cart-button" type="button">Add To Cart</button>
       </div>
     </div>
 

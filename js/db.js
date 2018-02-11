@@ -542,19 +542,23 @@ const DATABASE = (function(){
     getCategoryList: function(){
       return categoryList;
     },
-    getitemList: function(){
+    getItemList: function(){
       return itemList;
     },
     getCartItemList: function(){
       return JSON.parse(localStorage.getItem("cartItems"));
     },
     addToCartItemList: function(item){
-      let cartItems = getCartItemList();
+      let cartItems = this.getCartItemList();
       cartItems.push(item);
       localStorage.setItem("cartItems",JSON.stringify(cartItems));
     },
+    isNotPresentInCart: function(itemId){
+      let cartItems = this.getCartItemList();
+      return (cartItems.indexOf(itemId)<0);
+    },
     removeFromCartItemList: function(itemId){
-      let cartItems = getCartItemList(),
+      let cartItems = this.getCartItemList(),
           index = cartItems.findIndex((item) => {
             return (item.id == itemId);
           });
