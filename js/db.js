@@ -566,7 +566,11 @@ const DATABASE = (function(){
           });
       cartItems.splice(index,1);
       localStorage.setItem("cartItems",JSON.stringify(cartItems));
-    }
+    },
+    getCartCount: function(){
+      let cartItems = this.getCartItemList();
+      return cartItems.reduce((accumulator, currentItem) => accumulator + currentItem.quantity,0);
+    },
   }
   octopus.init();
   return octopus;
