@@ -1,14 +1,8 @@
 const APP = (function(){
 
-  // const model = {
-  //   init: function(){
-  //     DATABASE.init();
-  //   }
-  // };
 
   const octopus = {
     init: function(){
-      // model.init();
       view.init();
     },
     getCategories: function(){
