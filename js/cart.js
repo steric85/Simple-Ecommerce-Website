@@ -26,14 +26,14 @@ const CART = (function(){
 
   const view = (function(){
 
-    function getCartItemInnerHTML(cartItemImage,cartItemName,cartItemQty,totalItemPrice){
+    function getCartItemInnerHTML(cartItem,cartItemQty,totalItemPrice){
       return `
         <td>
           <div class="cart-item-details">
             <i class="material-icons delete">cancel</i>
-            <img class="cart-item-image" src=${cartItemImage}>
+            <img class="cart-item-image" src=${cartItem.image}>
             <div class="cart-item-description">
-              <div class="cart-item-name">${cartItemName}</div>
+              <div class="cart-item-name">${cartItem.name}</div>
               <div class="cart-item-detail">Pack of eight</div>
             </div>
           </div>
@@ -104,7 +104,7 @@ const CART = (function(){
               tableRow = document.createElement("tr"),
               totalItemPrice = cartItem.price * cItem.quantity;
           tableRow.setAttribute("data-item-id",`${cartItem.id}`);
-          tableRow.innerHTML = getCartItemInnerHTML(cartItem.image,cartItem.name,cItem.quantity,totalItemPrice);
+          tableRow.innerHTML = getCartItemInnerHTML(cartItem,cItem.quantity,totalItemPrice);
           fragment.appendChild(tableRow);
         });
 

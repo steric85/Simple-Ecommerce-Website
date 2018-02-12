@@ -25,13 +25,13 @@ const ITEMLIST = (function(){
 
   const view = (function(){
 
-    function getItemInnerHTML(itemImage,itemName,itemSeller,itemPrice){
+    function getItemInnerHTML(item){
       return `
-        <img class="item-image" src=${itemImage} alt="Item image">
+        <img class="item-image" src=${item.image} alt="Item image">
         <div class="item-details">
-          <div class="item-name ellipsis">${itemName}</div>
-          <div class="item-seller ellipsis">${itemSeller}</div>
-          <div class="item-price">Rs. ${itemPrice}</div>
+          <div class="item-name ellipsis">${item.name}</div>
+          <div class="item-seller ellipsis">${item.seller}</div>
+          <div class="item-price">Rs. ${item.price}</div>
         </div>
       `;
     }
@@ -103,7 +103,7 @@ const ITEMLIST = (function(){
             itemNode.className="item";
             itemNode.setAttribute("data-id",`${item.id}`);
             itemNode.addEventListener("click", (event)=>openPopup(this.popupDetailsElem,event));
-            itemNode.innerHTML = getItemInnerHTML(item.image,item.name,item.seller,item.price);
+            itemNode.innerHTML = getItemInnerHTML(item);
             quickAddButton = document.createElement("i");
             quickAddButton.className = "material-icons";
             quickAddButton.classList.add("quick-add");

@@ -93,6 +93,10 @@ tbody>tr:last-child>td {
   margin: 0px 20px;
 }
 
+.cart-item-qty:focus {
+  outline: 0;
+}
+
 .price-column{
   min-width: 80px;
 }

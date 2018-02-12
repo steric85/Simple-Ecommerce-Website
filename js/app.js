@@ -18,10 +18,10 @@ const APP = (function(){
 
   const view = (function(){
 
-    function getCategoryInnerHTML(categoryImage,categoryName){
+    function getCategoryInnerHTML(category){
       return `
-          <img class="category-image" src=${categoryImage} alt=${categoryName}/>
-          <div class="category-name">${categoryName}</div>
+          <img class="category-image" src=${category.image} alt=${category.name}/>
+          <div class="category-name">${category.name}</div>
       `;
     }
 
@@ -41,7 +41,7 @@ const APP = (function(){
               let categoryId = e.target.closest('.category').dataset.categoryId;
               window.location.href = `itemlist.html?category=${categoryId}`;
           });
-          categoryNode.innerHTML = getCategoryInnerHTML(category.image,category.name);
+          categoryNode.innerHTML = getCategoryInnerHTML(category);
           fragment.appendChild(categoryNode);
         });
         this.categoryListElem.appendChild(fragment);
