@@ -45,23 +45,18 @@
 //   octopus.init();
 // })();
 
-class Category extends React.Component{
+function Category(props){
 
-  componentDidMount(){
-    ReactDOM.findDOMNode(this).addEventListener('click', function(e) {
-      let categoryId = e.target.closest('.category').dataset.categoryId;
-      window.location.href = `itemlist.html?category=${categoryId}`;
-    });
+  function handleClick(){
+    window.location.href = `itemlist.html?category=${props.category.id}`
   }
 
-  render(){
-    return (
-      <div className="category" data-category-id={this.props.category.id}>
-        <img className="category-image" src={this.props.category.image} alt={this.props.category.name}/>
-        <div className="category-name">{this.props.category.name}</div>
-      </div>
-    );
-  }
+  return (
+    <div className="category" onClick={handleClick}>
+      <img className="category-image" src={props.category.image} alt={props.category.name}/>
+      <div className="category-name">{props.category.name}</div>
+    </div>
+  );
 }
 
 function CategoryList(){

@@ -145,6 +145,10 @@
 function addItemToCart(item){
   if(DATABASE.isNotPresentInCart(item.id)){
     DATABASE.addToCartItemList(item);
+    alert('Added item to cart! :)');
+  }
+  else{
+    alert('The item is already in cart!');
   }
 }
 
@@ -153,14 +157,6 @@ function getItemFromItemList(itemId){
     return (item.id === itemId);
   });
   return item;
-}
-
-function closePopup(){
-  let popupDetailsDiv = document.getElementById("popup-item-details");
-  popupDetailsDiv.removeAttribute("data-popup-item-id");
-  while (popupDetailsDiv.hasChildNodes()) {
-    popupDetailsDiv.removeChild(popupDetailsDiv.firstChild);
-  }
 }
 
 function populatePopup(popupDetailsNode,itemSelected){
@@ -190,9 +186,8 @@ function populatePopup(popupDetailsNode,itemSelected){
   popupDetailsNode.appendChild(textNode);
 }
 
-function openPopup(event){
-  let itemId = event.target.closest('.item').dataset.id,
-      itemSelected = getItemFromItemList(itemId),
+function openPopup(event,itemId){
+  let itemSelected = getItemFromItemList(itemId),
       popupDetailsNode = document.getElementById("popup-item-details");
 
   populatePopup(popupDetailsNode,itemSelected);
@@ -203,52 +198,40 @@ function MenuTitle(props){
   return <div id="menu-title">{props.categoryId.replace('-',' ')}</div>;
 }
 
-class QuickAddButton extends React.Component{
-  constructor(props){
-    super(props);
-    this.handleQuickAdd = this.handleQuickAdd.bind(this);
-  }
-  handleQuickAdd(event){
-    let itemId = event.target.closest('.item').dataset.id;
+function QuickAddButton(props){
+  function handleQuickAdd(event){
     addItemToCart({
-      "id":itemId,
+      "id":props.itemId,
       "quantity":1
     });
     event.stopPropagation();
-    alert('Added item to cart! :)');
-    this.props.updateHeaderCartCount();
+    props.updateHeaderCartCount();
   }
-  componentDidMount(){
-    ReactDOM.findDOMNode(this).addEventListener("click",this.handleQuickAdd);
-  }
-  render(){
-    return <i className="material-icons quick-add">add_shopping_cart</i>;
-  }
+  return <i className="material-icons quick-add" onClick={handleQuickAdd}>add_shopping_cart</i>;
 }
 
-class Item extends React.Component{
-  componentDidMount(){
-    ReactDOM.findDOMNode(this).addEventListener('click',openPopup);
+function Item(props){
+  function handleClick(event){
+    openPopup(event,props.item.id);
   }
-  render(){
-    return (
-      <div className="item" data-id={this.props.item.id}>
-        <img className="item-image" src={this.props.item.image} alt="Item image"/>
-        <div className="item-details">
-          <div className="item-name ellipsis">{this.props.item.name}</div>
-          <div className="item-seller ellipsis">{this.props.item.seller}</div>
-          <div className="item-price">Rs. {this.props.item.price}</div>
-        </div>
-        <QuickAddButton updateHeaderCartCount={this.props.updateHeaderCartCount}/>
+  return (
+    <div className="item" onClick={handleClick}>
+      <img className="item-image" src={props.item.image} alt="Item image"/>
+      <div className="item-details">
+        <div className="item-name ellipsis">{props.item.name}</div>
+        <div className="item-seller ellipsis">{props.item.seller}</div>
+        <div className="item-price">Rs. {props.item.price}</div>
       </div>
-    );
-  }
+      <QuickAddButton updateHeaderCartCount={props.updateHeaderCartCount} itemId={props.item.id}/>
+    </div>
+  );
 }
 
 function ItemList(props){
+  const itemList = DATABASE.getItemList();
   return(
     <div id="item-list">
-      {DATABASE.getItemList().map((item) => {
+      {itemList.map((item) => {
         if(item.category == props.categoryId)
         return <Item key={item.id} item={item} updateHeaderCartCount={props.updateHeaderCartCount}/>})}
     </div>
@@ -256,7 +239,7 @@ function ItemList(props){
 }
 
 function ItemsMenu(props){
-  let category = window.location.search,
+  const category = window.location.search,
       categoryId = category.slice(category.indexOf('=')+1);
 
   return(
@@ -267,49 +250,39 @@ function ItemsMenu(props){
   );
 }
 
-class CloseButton extends React.Component{
-  componentDidMount(){
-    ReactDOM.findDOMNode(this).addEventListener('click',closePopup);
-  }
-  render(){
-    return <a className="close" href="#!">&times;</a> ;
-  }
+function CloseButton(props){
+  return <a className="close" href="#!" onClick={props.closePopup}>&times;</a> ;
 }
 
-class AddToCartButton extends React.Component{
-  constructor(props){
-    super(props);
-    this.handleAddToCart = this.handleAddToCart.bind(this);
-  }
-  handleAddToCart(){
-    let itemId = ReactDOM.findDOMNode(this).previousSibling.dataset.popupItemId;
+function AddToCartButton(props){
+  function handleAddToCart(){
+    let itemId = document.getElementById("popup-item-details").dataset.popupItemId;
     addItemToCart({
       "id":itemId,
       "quantity":1
     });
-    this.props.updateHeaderCartCount();
+    props.updateHeaderCartCount();
     window.location.href = `#!`;
-    closePopup();
+    props.closePopup();
   }
-  componentDidMount(){
-    ReactDOM.findDOMNode(this).addEventListener('click',this.handleAddToCart);
-  }
-  render(){
-    return <button id="add-to-cart-button" type="button">Add To Cart</button>;
-  }
-}
-
-function PopupItem(){
-  return <div id="popup-item-details"></div>;
+  return <button id="add-to-cart-button" type="button" onClick={handleAddToCart}>Add To Cart</button>;
 }
 
 function PopupBox(props){
+  function closePopup(){
+    let popupDetailsDiv = document.getElementById("popup-item-details");
+    popupDetailsDiv.removeAttribute("data-popup-item-id");
+    while (popupDetailsDiv.hasChildNodes()) {
+      popupDetailsDiv.removeChild(popupDetailsDiv.firstChild);
+    }
+  }
+
   return (
     <div id="popupbox" className="layer">
       <div className="popup">
-        <CloseButton />
-        <PopupItem/>
-        <AddToCartButton updateHeaderCartCount={props.updateHeaderCartCount}/>
+        <CloseButton closePopup={closePopup}/>
+        <div id="popup-item-details"></div>
+        <AddToCartButton updateHeaderCartCount={props.updateHeaderCartCount} closePopup={closePopup}/>
       </div>
     </div>
   );
