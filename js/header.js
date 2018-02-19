@@ -28,19 +28,19 @@
 //   }
 // })();
 
-const header = document.getElementsByTagName("header")[0];
+// const header = document.getElementsByTagName("header")[0];
 
 function Header(props){
   return (
     <header>
       <div>
-          <a href="./index.html" id="title" className="header-links">Art&Craft</a>
+        <a href="./index.html" id="title" className="header-links">Art&Craft</a>
       </div>
       <div>
-          <a href="./cart.html" className="header-links cart-button">
-            <span id="cart-items-count">{props.count}</span>
-            <i className="material-icons cart-icon">shopping_cart</i>
-          </a>
+        <a href="./cart.html" className="header-links cart-button">
+          <span id="cart-items-count">{props.count}</span>
+          <i className="material-icons cart-icon">shopping_cart</i>
+        </a>
       </div>
     </header>
   );

@@ -569,7 +569,15 @@ const DATABASE = (function(){
     },
     getCartCount: function(){
       let cartItems = this.getCartItemList();
-      return cartItems.reduce((accumulator, currentItem) => accumulator + currentItem.quantity,0);
+      return cartItems.reduce((accumulator, currentItem) => accumulator + currentItem.quantity, 0);
+    },
+    setCartItemQuantity: function(itemId,quantity){
+      let cartItems = this.getCartItemList(),
+          cartItem = cartItems.find(function(item){
+            return item.id === itemId;
+          });
+      cartItem.quantity = quantity;
+      localStorage.setItem("cartItems",JSON.stringify(cartItems));
     },
   }
   octopus.init();
