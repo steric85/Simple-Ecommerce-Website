@@ -83,15 +83,49 @@ function Item(props){
   );
 }
 
-function ItemList(props){
-  const itemList = DATABASE.getItemList();
-  return(
-    <div id="item-list">
-      {itemList.map((item) => {
-        if(item.category == props.categoryId)
-        return <Item key={item.id} item={item} updateHeaderCartCount={props.updateHeaderCartCount}/>})}
-    </div>
-  )
+function getItems(){
+  let myPromise = new Promise((resolve) => {
+    setTimeout(function(){
+      resolve(DATABASE.getItemList());
+    }, Math.random()*10000);
+  });
+  return myPromise;
+}
+
+class ItemList extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      items: [],
+      currentStatus: "Loading items ...",
+    };
+  }
+
+  componentDidMount(){
+    getItems().then((items) => {
+      this.setState({
+        currentStatus: "successful",
+        items: items,
+      });
+    });
+  }
+
+  render(){
+    return(
+      <div id="item-list">
+        {
+          this.state.currentStatus === "successful" ?
+            this.state.items.map((item) => {
+              if(item.category == this.props.categoryId){
+                return <Item key={item.id} item={item} updateHeaderCartCount={this.props.updateHeaderCartCount}/>
+              }
+            })
+          :
+          <div>{this.state.currentStatus}</div>
+        }
+      </div>
+    );
+  }
 }
 
 function ItemsMenu(props){
